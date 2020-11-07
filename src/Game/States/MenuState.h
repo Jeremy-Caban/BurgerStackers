@@ -7,7 +7,7 @@ class MenuState : public State {
 private:
 	ofImage img1;
 	Button *startButton;
-
+	ofImage startScreen;
 public:
 	MenuState();
 	void tick();

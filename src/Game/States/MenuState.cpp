@@ -2,6 +2,7 @@
 
 MenuState::MenuState() {
 	startButton = new Button(ofGetWidth()/2, ofGetHeight()/2, 64, 50, "Start");
+	startScreen.load("images/titleToEdit.jpg");
 }
 void MenuState::tick() {
 	startButton->tick();
@@ -12,8 +13,11 @@ void MenuState::tick() {
 	}
 }
 void MenuState::render() {
+	ofSetColor(256,256,256);
+	this->startScreen.draw(0, 0, ofGetWidth(), ofGetHeight());
 	ofSetBackgroundColor(230, 230, 250);
 	startButton->render();
+	ofDrawBitmapString("Instructions:\nPress 'e' to pick up ingredients\nPress 's' to serve burger",(ofGetWidth()/2)*0.2,(ofGetHeight()/2)*1.6);
 }
 
 void MenuState::keyPressed(int key){
