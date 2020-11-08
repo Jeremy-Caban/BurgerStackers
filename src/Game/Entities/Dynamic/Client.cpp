@@ -7,9 +7,16 @@ Client::~Client(){
     burger->~Burger();
 }
 void Client::render(){
+    ofSetColor (255,255,255); //Set color to white so burger conserves its original colored image.
     burger->render();
-    ofSetColor (255,255,255);
+
+    ticks++;
+    if(ticks % 60 == 0){ //Once a second has passed decrease value by nine.
+        losingPatience -= 9;
+    }
+    ofSetColor (255,losingPatience,losingPatience); //Each second slowly turns the client red as he loses his patience.
     sprite.draw(x, y, width, height);
+
     // ofDrawRectangle(getBounds());
     if(nextClient != nullptr){
         nextClient->render();

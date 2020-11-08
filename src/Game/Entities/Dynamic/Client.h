@@ -16,5 +16,6 @@ class Client: public Entity{
         bool isLeaving=false;
         bool isServed=false; //used when checking if a client was served
         int getPatience(){ return this->patience; } //patience getter
+        int losingPatience = 255; //used to display the client's patience by slowly turning red the color of their image.
 
 };
