@@ -14,6 +14,7 @@ void Restaurant::setPlayer(Player *player) {
 
 Restaurant::Restaurant() {
     floor.load("images/floor.jpg");
+    loadDecorations(); //Load images for the restaurants' decoration.
     entityManager = new EntityManager();
     ofImage chefPlayerImage;
     chefPlayerImage.load("images/chef.png");
@@ -104,8 +105,54 @@ void Restaurant::generateClient(){
     b->addIngredient(topBread);
     entityManager->addClient(new Client(0, 50, 64, 72,people[ofRandom(8)], b));
 }
+
+void Restaurant::loadDecorations(){ //Function that loads all the decoration of the restaurant. 
+    decorations.load("images/sprite.png");  //load image for tables.
+    table.cropFrom(decorations, 21, 27, 62, 63);
+
+    decorations.load("images/flower.png"); //load new image for flowers.
+    flower.cropFrom(decorations, 29, 35, 17, 18);
+    flower.resize(24,25);
+
+    decorations.load("images/lpc_misc.png"); //load new image for lamp.
+    lamp.cropFrom(decorations, 70, 8, 19, 80);
+    lamp.resize(30,90);
+
+    decorations.load("images/house_inside.png"); //load new image for rightchair and leftchair.
+    leftchair.cropFrom(decorations, 387, 399, 25, 34);
+    rightchair.cropFrom(decorations, 419, 399, 25, 34);
+}
+
+void Restaurant::drawDecorations(){ //Function that draws all the decoration of the restaurant. 
+    for(int i = 0 ; i < 4 ; i++){ 
+        table.draw(192, 400 -100*i); //Tables.
+        table.draw(384 , 400 -100*i); 
+        table.draw(576, 400 -100*i); 
+        
+
+        flower.draw(213, 400 -100*i); //Flowers.
+        flower.draw(405 , 400 -100*i); 
+        flower.draw(597, 400 -100*i); 
+        
+        
+        lamp.draw(300, 350 -100*i); //Lamps.
+        lamp.draw(500 , 350 -100*i); 
+        
+
+        leftchair.draw(158, 400 -100*i); //Leftchair.
+        leftchair.draw(350 , 400 -100*i); 
+        leftchair.draw(542, 400 -100*i); 
+        
+
+        rightchair.draw(254, 400 -100*i); //Rightchair.
+        rightchair.draw(450 , 400 -100*i);
+        rightchair.draw(640, 400 -100*i); 
+    }
+}
+
 void Restaurant::render() {
     floor.draw(0,0, ofGetWidth(), ofGetHeight());
+    drawDecorations(); //Draw the restaurants decoration for ambiance.
     player->render();
     entityManager->render();
     ofSetColor(0, 100, 0);
