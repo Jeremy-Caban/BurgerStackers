@@ -14,7 +14,7 @@ class Client: public Entity{
         int serve(Burger*);
         Client* nextClient=nullptr;
         bool isLeaving=false;
-
-
+        bool isServed=false; //used when checking if a client was served
+        int getPatience(){ return this->patience; } //patience getter
 
 };

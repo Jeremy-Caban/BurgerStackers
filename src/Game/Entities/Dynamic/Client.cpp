@@ -29,5 +29,6 @@ void Client::tick(){
 
 int Client::serve(Burger* burger){
     isLeaving = true;
+    isServed = true; //client has been served
     return 10;
 }

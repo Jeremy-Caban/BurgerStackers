@@ -151,19 +151,29 @@ void Restaurant::drawDecorations(){ //Function that draws all the decoration of 
 }
 
 void Restaurant::render() {
+    ofSetColor(256, 256, 256);
     floor.draw(0,0, ofGetWidth(), ofGetHeight());
     drawDecorations(); //Draw the restaurants decoration for ambiance.
     player->render();
     entityManager->render();
     ofSetColor(0, 100, 0);
     ofDrawBitmapString("Money: " + to_string(money), ofGetWidth()/2, 10);
-    ofSetColor(256, 256, 256);
+    ofSetColor(255,0,0);
+    ofDrawBitmapString("Angry clients: " + to_string(clientsThatLeft),ofGetWidth() - 300, 10);
 }
 void Restaurant::serveClient(){
     if(entityManager->firstClient!= nullptr){
         money += entityManager->firstClient->serve(player->getBurger());
     }
 }
+
+void Restaurant::countAngryClients(){
+    //checks the first client to see if they are about to leave without being served and adds 1 to the count if so
+    if(this->entityManager->firstClient->getPatience() == 1 && !this->entityManager->firstClient->isServed){
+        this->clientsThatLeft++;
+    }
+}
+
 void Restaurant::keyPressed(int key) {
     player->keyPressed(key);
     if(key == 's'){

@@ -13,7 +13,7 @@ void MenuState::tick() {
 	}
 }
 void MenuState::render() {
-	ofSetColor(256,256,256);
+	ofSetColor(256,256,256); //this prevents the screen from being completely black
 	this->startScreen.draw(0, 0, ofGetWidth(), ofGetHeight());
 	ofSetBackgroundColor(230, 230, 250);
 	startButton->render();

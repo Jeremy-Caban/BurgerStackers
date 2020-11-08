@@ -16,10 +16,12 @@ class Restaurant {
         int ticks=0;
         std::vector<ofImage> people;
         int money =0;
-
+        int clientsThatLeft = 0;
     public:
         Restaurant();
         Player* getPlayer();
+        int getClientsThatLeft(){ return this->clientsThatLeft; } //clients that left getter
+        void countAngryClients(); //will keep track of clients that left without being served
         void setPlayer(Player *player);
         Item* cheese;
         Item* lettuce;
