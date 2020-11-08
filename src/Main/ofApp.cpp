@@ -3,7 +3,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	ofSetWindowTitle("Java Game Box");
+	ofSetWindowTitle("C++ Game Box");
 	//States
 	menuState = new MenuState();
 	gameState = new GameState();

@@ -28,6 +28,14 @@ class Restaurant {
         Item* botBread;
         Item* topBread;
         ofImage floor;
+        ofImage decorations; //Image that loads the decorations for the restaurant.
+        ofImage table; 
+        ofImage flower; 
+        ofImage lamp; 
+        ofImage leftchair; 
+        ofImage rightchair;
+        void loadDecorations(); //Member function that loads all the images used for the decorations.
+        void drawDecorations(); //Member function that holds all the decorations for render.
         void initItems();
         void initCounters();
         void initClients();
