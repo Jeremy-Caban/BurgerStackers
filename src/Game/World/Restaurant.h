@@ -20,7 +20,9 @@ class Restaurant {
     public:
         Restaurant();
         Player* getPlayer();
+        int getMoney(){ return money; } //getter used to evaluate if player has won.
         int getClientsThatLeft(){ return this->clientsThatLeft; } //clients that left getter
+        void setMoney(int money){ this-> money = money; } //establish money when needed. 
         void countAngryClients(); //will keep track of clients that left without being served
         void setPlayer(Player *player);
         Item* cheese;
