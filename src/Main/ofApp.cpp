@@ -8,6 +8,7 @@ void ofApp::setup(){
 	menuState = new MenuState();
 	gameState = new GameState();
 	loseState = new LoseState();
+	winState = new WinState();
 	// Initial State
 	currentState = menuState;
 }
@@ -26,9 +27,17 @@ void ofApp::update(){
 				//if we restarted from a game over then reset the game first
 				gameState->resetRestaurant();
 				currentState = gameState;
+			}else if(currentState->getNextState() == "Game" && dynamic_cast<WinState*>(currentState)){
+				//if we restarted from WinState then reset the game first
+				gameState->resetRestaurant();
+				currentState = gameState;
 			}else if(currentState->getNextState() == "Lose"){
 				//Enter "lose" state
 				currentState = loseState;
+			}
+			else if(currentState->getNextState() == "Win"){
+				//Enter "Win" state
+				currentState = winState;
 			}
 			currentState->reset();
 		}

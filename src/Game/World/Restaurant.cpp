@@ -179,4 +179,10 @@ void Restaurant::keyPressed(int key) {
     if(key == 's'){
         serveClient();
     }
+    if(key == '+'){ //Activate WinState.
+        setMoney(100);
+    }
+    if(key == '-'){ //Activate LoseState.
+        clientsThatLeft = 10;
+    }
 }
