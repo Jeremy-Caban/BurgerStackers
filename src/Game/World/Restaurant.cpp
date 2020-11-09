@@ -169,7 +169,7 @@ void Restaurant::serveClient(){
 
 void Restaurant::countAngryClients(){
     //checks the first client to see if they are about to leave without being served and adds 1 to the count if so
-    if(this->entityManager->firstClient->getPatience() == 1 && !this->entityManager->firstClient->isServed){
+    if(this->entityManager->firstClient != nullptr && this->entityManager->firstClient->getPatience() == 1 && !this->entityManager->firstClient->isServed){
         this->clientsThatLeft++;
     }
 }

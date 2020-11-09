@@ -11,6 +11,15 @@ void ofApp::setup(){
 	winState = new WinState();
 	// Initial State
 	currentState = menuState;
+
+	//----------------(music)--------------------
+	gameMusic.load("music/gameMusicWithFade.mp3");
+	gameMusic.setLoop(true);
+	gameMusic.play();
+	loseMusic.load("music/loseMusic.mp3");
+	loseMusic.setVolume(0.6);
+	loseMusic.setLoop(true);
+	winMusic.load("music/winMusic.mp3");
 }
 
 //--------------------------------------------------------------
@@ -27,17 +36,21 @@ void ofApp::update(){
 				//if we restarted from a game over then reset the game first
 				gameState->resetRestaurant();
 				currentState = gameState;
+				playCorrectMusic();
 			}else if(currentState->getNextState() == "Game" && dynamic_cast<WinState*>(currentState)){
 				//if we restarted from WinState then reset the game first
 				gameState->resetRestaurant();
 				currentState = gameState;
+				playCorrectMusic();
 			}else if(currentState->getNextState() == "Lose"){
 				//Enter "lose" state
 				currentState = loseState;
+				playCorrectMusic();
 			}
 			else if(currentState->getNextState() == "Win"){
 				//Enter "Win" state
 				currentState = winState;
+				playCorrectMusic();
 			}
 			currentState->reset();
 		}
@@ -116,4 +129,19 @@ void ofApp::gotMessage(ofMessage msg){
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 	if (currentState != nullptr)
 		currentState->dragEvent(dragInfo);
+}
+
+//--------------------------------------------------------------
+void ofApp::playCorrectMusic(){
+	//stops all music then plays the correct one
+	gameMusic.stop();
+	loseMusic.stop();
+	winMusic.stop();
+	if(dynamic_cast<WinState*>(currentState)){
+		winMusic.play();
+	}else if(dynamic_cast<LoseState*>(currentState)){
+		loseMusic.play();
+	}else{
+		gameMusic.play();
+	}
 }
