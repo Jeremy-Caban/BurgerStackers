@@ -54,6 +54,8 @@ void Player::keyPressed(int key){
                 burger->addIngredient(item);
             }
         }
+    }else if(key == 'u'){
+        this->burger->removeIngredient();
     }
 }
 BaseCounter* Player::getActiveCounter(){

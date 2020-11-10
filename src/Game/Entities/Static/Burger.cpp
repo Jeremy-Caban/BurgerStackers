@@ -26,3 +26,10 @@ void Burger::render(){
 void Burger::clear(){
     ingredients.empty();
 }
+
+void Burger::removeIngredient(){
+    if(!ingredients.empty()){
+        ingredients.pop_back();
+    }
+    
+}
