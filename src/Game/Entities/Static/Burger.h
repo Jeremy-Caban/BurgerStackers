@@ -15,6 +15,7 @@ private:
 
 public:
     Burger(int, int, int, int);
+    vector<Item*> getIngredients() { return ingredients;} //ingredients getter.
     void addIngredient(Item *item);
     void render();
     void clear();
