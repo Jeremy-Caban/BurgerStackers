@@ -25,7 +25,7 @@ void Client::render(){
 
 void Client::tick(){
     patience--;
-    burger->setY(y);
+    burger->setY(y+60); //Set the burger alonside the client.
     if(patience == 0){
         isLeaving = true;
     }
