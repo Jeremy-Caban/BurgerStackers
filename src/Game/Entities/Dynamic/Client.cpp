@@ -35,14 +35,21 @@ void Client::tick(){
 }
 
 int Client::serve(Burger* burger){
-    if(equals(burger)){ //True if the burger served is equal to the order of the client.
+    int sum = 0;
+    if(this->nextClient == nullptr){ //checks if its the last one
+        if(equals(burger) && !isServed){
+            isLeaving = true;
+            isServed = true;
+            sum += 10;
+        }
+    }else if(equals(burger) && !isServed){ //True if the burger served is equal to the order of the client.
         isLeaving = true;
-        isServed = true; //client has been served
-        return 10;
+        isServed = true; //client has been served (will additionally not be served anymore)
+        sum += (10 + this->nextClient->serve(burger));
+    }else{ //Is not the same order that the client wanted, check the rest.
+        sum += this->nextClient->serve(burger);
     }
-    else{ //Is not the same order that the client wanted.
-        return 0;
-    }
+    return sum; //returns total earnings
 }
 
 bool Client::equals(Burger* chefBurger){

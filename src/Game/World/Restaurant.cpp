@@ -185,4 +185,7 @@ void Restaurant::keyPressed(int key) {
     if(key == '-'){ //Activate LoseState.
         clientsThatLeft = 10;
     }
+    if(key == '['){ //used for debugging purposes
+        this->entityManager->firstClient->sabotageBurger();
+    }
 }

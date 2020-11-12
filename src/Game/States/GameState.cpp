@@ -10,7 +10,7 @@ void GameState::tick() {
 		setFinished(true);
 		setNextState("Lose");
 	}
-	if(restaurant->getMoney() == 100){ //When reached $100 player has won.
+	if(restaurant->getMoney() >= 100){ //When reached $100 player has won.
 		setFinished(true);
 		setNextState("Win");
 	}
