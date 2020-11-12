@@ -97,13 +97,31 @@ void Restaurant::tick() {
 
 void Restaurant::generateClient(){
     Burger* b = new Burger(72, 100, 50, 25);
-    b->addIngredient(botBread);
-    b->addIngredient(burger);
-    b->addIngredient(cheese);
-    b->addIngredient(tomato);
-    b->addIngredient(lettuce);
-    b->addIngredient(topBread);
+    randomIngredients(b); //Add ingredients to client.
     entityManager->addClient(new Client(0, 50, 64, 72,people[ofRandom(8)], b));
+}
+
+void Restaurant::randomIngredients(Burger* &b){
+    int randIngr;
+    b->addIngredient(botBread); //Bottom bread will be the first ingredient in the burger.
+    for(int i =0 ; i <3 ; i++){ //Generate 3 random ingredients.
+        randIngr = round(ofRandom(4));
+        switch(randIngr){
+            case(0):
+                b->addIngredient(cheese);
+                break;
+            case(1):
+                b->addIngredient(lettuce);
+                break;
+            case(2):
+                b->addIngredient(tomato);
+                break;
+            default:
+                b->addIngredient(burger);
+                break;
+        }
+    }
+    b->addIngredient(topBread); //Top bread will be the last ingredient in the burger.
 }
 
 void Restaurant::loadDecorations(){ //Function that loads all the decoration of the restaurant. 
@@ -184,8 +202,5 @@ void Restaurant::keyPressed(int key) {
     }
     if(key == '-'){ //Activate LoseState.
         clientsThatLeft = 10;
-    }
-    if(key == '['){ //used for debugging purposes
-        this->entityManager->firstClient->sabotageBurger();
     }
 }

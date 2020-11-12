@@ -38,6 +38,7 @@ class Restaurant {
         ofImage lamp; 
         ofImage leftchair; 
         ofImage rightchair;
+        void randomIngredients(Burger* &burger); //generate random ingredients for different clients.
         void loadDecorations(); //Member function that loads all the images used for the decorations.
         void drawDecorations(); //Member function that holds all the decorations for render.
         void initItems();
