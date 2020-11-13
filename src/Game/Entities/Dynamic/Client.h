@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include "Burger.h"
-
+#include <map>
 class Client: public Entity{
     private:
         Burger* burger;
@@ -18,4 +18,5 @@ class Client: public Entity{
         bool equals(Burger*); //determines if two burgers are the same.
         int getPatience(){ return this->patience; } //patience getter
         int losingPatience = 255; //used to display the client's patience by slowly turning red the color of their image.
+        map<string, int> countBurgerIngredients(Burger* Burger);
 };

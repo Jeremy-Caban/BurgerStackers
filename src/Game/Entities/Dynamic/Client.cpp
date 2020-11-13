@@ -52,27 +52,43 @@ int Client::serve(Burger* burger){
     return sum; //returns total earnings
 }
 
-bool Client::equals(Burger* chefBurger){
-    bool areEqual;
-    vector<Item*> clientIngr = this->burger->getIngredients();
-    vector<Item*> chefIngr = chefBurger->getIngredients();
-
-    //Compare types and quantities of ingredients to determine if two burgers are the same.
-    if( clientIngr.size() == chefIngr.size()){ 
-        for(unsigned int i = 0 ; i < clientIngr.size() ; i++){
-            areEqual = false;   
-            for(unsigned int j = 0 ; j <  chefIngr.size() ; j++){
-               if(clientIngr[i]->name == chefIngr[j]->name){
-                   areEqual = true;
-                   break; //stop comparing and go to the next iteration since the ingredient is in both burgers.
-               }
-            
-            }
-            if(areEqual == false) return areEqual; //If an ingredient from the target burger is not found in the parameter burger then they are not equal.
+map<string, int> Client::countBurgerIngredients(Burger* Burger){
+    map<string, int> BurgerCount;
+    stack<Item*, vector<Item*> > bIngredients = Burger->getIngredients(); //get the stack of ingredients
+    while(bIngredients.size() > 0){
+        if(BurgerCount.find(bIngredients.top()->name) != BurgerCount.end()){ 
+            BurgerCount[bIngredients.top()->name] += 1; //if already there add 1 to the count
+        }else{
+            BurgerCount.insert(make_pair(bIngredients.top()->name, 1)); //else add to the map with a count of 1 
         }
+        bIngredients.pop();
     }
-    else{
-        areEqual = false;
+    return BurgerCount;
+}
+
+bool Client::equals(Burger* chefBurger){
+    if(chefBurger->getIngredients().empty()){ //if chef burger is empty return false 
+        return false;
     }
-    return areEqual; 
+    if(this->burger->getIngredients().size() == chefBurger->getIngredients().size()){
+        set<string> listOfIngredients;
+        map<string, int> thisBurgerCount, chefBurgerCount;                                 
+        stack<Item*, vector<Item*> > cThisIngredients = this->burger->getIngredients();//cThisIngredient = copy this ingredients                                                                                 
+        //get the name of the ingredients, not the count, (sets are useful here)
+        while(cThisIngredients.size() > 0){
+            listOfIngredients.insert(cThisIngredients.top()->name); //will not allow duplicates, we care only about the type
+            cThisIngredients.pop();
+        }
+        //get the counts labeled with their respective Ingredient (ej. lettuce x2, cheese x1, topBread x1 etc.)
+        thisBurgerCount = countBurgerIngredients(this->burger); 
+        chefBurgerCount = countBurgerIngredients(chefBurger);
+        for(string iName: listOfIngredients){
+            if(thisBurgerCount.find(iName)->second != chefBurgerCount.find(iName)->second){ //will check for different amounts
+                return false;
+            }
+        }
+        return true; //will return true if all the quantities are correct
+    }else{
+        return false;
+    }
 }

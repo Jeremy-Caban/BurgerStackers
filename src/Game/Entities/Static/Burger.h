@@ -7,15 +7,14 @@
 
 #include "Item.h"
 #include "Entity.h"
-
+#include <stack>
 class Burger {
 private:
     int x,y,width,height;
- vector<Item*> ingredients;
-
+    stack<Item*, vector<Item*> > ingredientList;
 public:
     Burger(int, int, int, int);
-    vector<Item*> getIngredients() { return ingredients;} //ingredients getter.
+    stack<Item*, vector<Item*> > getIngredients() { return ingredientList;} //ingredients getter.
     void addIngredient(Item *item);
     void render();
     void clear();
