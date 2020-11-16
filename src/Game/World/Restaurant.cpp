@@ -57,7 +57,7 @@ void Restaurant::initCounters(){
     breadCounterImg.cropFrom(counterSheet,0,63,34,56);//buns
     entityManager->addEntity(new BaseCounter(0,yOffset-16, counterWidth, 117, nullptr, plateCounterImg));
     entityManager->addEntity( new BaseCounter(counterWidth,yOffset-7, counterWidth,108, cheese, cheeseCounterImg));
-    entityManager->addEntity(new BaseCounter(counterWidth*2,yOffset, counterWidth, 102, burger, stoveCounterImg));
+    entityManager->addEntity(new StoveCounter(counterWidth*2,yOffset, counterWidth, 102, burger, stoveCounterImg)); //stove
     entityManager->addEntity(new BaseCounter(counterWidth*3, yOffset, counterWidth, 102, lettuce, lettuceCounterImg));
     entityManager->addEntity(new BaseCounter(counterWidth*4,yOffset, counterWidth, 102, nullptr, emptyCounterImg));
     entityManager->addEntity(new BaseCounter(counterWidth*5, yOffset -10, counterWidth, 113, tomato, tomatoCounterImg));
@@ -212,12 +212,7 @@ void Restaurant::countAngryClients(){
         Inspector * inspector = dynamic_cast<Inspector*>(this->entityManager->firstClient);
         if(inspector != NULL){ //If an inspector has left then this if statement will run.
             if(money !=0){
-                bool once = true;
-                do
-                {
-                    money = money/2; //Halves the money earned.
-                    once = false;
-                } while (once);
+                money = money/2; //Halves the money earned.
             }
             spawnInspector = true; //Since an isnpector has left, another one can be spawned.
         }

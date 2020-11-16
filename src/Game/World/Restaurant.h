@@ -8,7 +8,7 @@
 #include "Player.h"
 #include "EntityManager.h"
 #include "BaseCounter.h"
-
+#include "StoveCounter.h"
 class Restaurant {
     private:
         Player* player;

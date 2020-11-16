@@ -29,11 +29,21 @@ void Player::tick(){
     }else if(x + width >= ofGetWidth()){
         facing = "left";
     }
+    if(startTimer){ //while timer is on, count ticks
+        this->cookTimer++;
+    }
 }
 
 void Player::render(){
     BaseCounter* ac = getActiveCounter();
-    if(ac != nullptr){
+    StoveCounter* stoveAc = dynamic_cast<StoveCounter*>(ac);
+    if(stoveAc != nullptr){
+        if(this->cookTimer > 160){
+            stoveAc->setBurgerIsCooked(true);
+        }
+        stoveAc->displayIcon();
+    }
+    else if(ac != nullptr){
         ac->showItem();
     }
     ofSetColor(256,256,256);
@@ -48,10 +58,21 @@ void Player::render(){
 void Player::keyPressed(int key){
     if(key == 'e'){
         BaseCounter* ac = getActiveCounter();
-        if(ac != nullptr){
+        StoveCounter* stoveAc = dynamic_cast<StoveCounter*>(ac);
+        //if timer if off turn it on, while timer is less than 160 ticks, don't give item
+        if(stoveAc != nullptr && this->cookTimer <= 160){ 
+            startTimer = true;
+        }
+        else if(ac != nullptr){
             Item* item = ac->getItem();
             if(item != nullptr){
                 burger->addIngredient(item);
+            }
+            if(stoveAc != nullptr){
+                //this means we took the item from the stove so stop and reset the timer
+                stoveAc->setBurgerIsCooked(false);
+                startTimer = false;
+                cookTimer = 0;
             }
         }
     }else if(key == 'u'){
