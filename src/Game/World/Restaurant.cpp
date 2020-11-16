@@ -83,11 +83,21 @@ void Restaurant::initClients(){
     people.push_back(temp);
     temp.load("images/People/Weather_Reporter2Female.png");
     people.push_back(temp);
+    temp.load("images/People/Inspector.png");
+    temp.cropFrom(temp,56,131,32,59); //Inspector Image.
+    people.push_back(temp);
 }
 void Restaurant::tick() {
     ticks++;
+    int randGenerate = ofRandom(5); //Generate 5 random numbers to create a 20% chance of generating an inspector instead of a client.
     if(ticks % 400 == 0){
-        generateClient();
+        if( randGenerate == 0 && spawnInspector == true){
+            generateInspector();
+            spawnInspector = false; //do not spawn inspector if one is already in line. 
+        }
+        else{
+            generateClient();
+        }
     }
     player->tick();
     entityManager->tick();
@@ -100,6 +110,12 @@ void Restaurant::generateClient(){
     randomIngredients(b); //Add ingredients to client.
     entityManager->addClient(new Client(0, 50, 64, 72,people[ofRandom(8)], b));
 }
+
+ void Restaurant::generateInspector(){
+    Burger* b = new Burger(72, 100, 50, 25);
+    randomIngredients(b); //Add ingredients to inspector.
+    entityManager->addClient(new Inspector(0, 50, 64, 72,people[people.size()-1], b));
+ }
 
 void Restaurant::randomIngredients(Burger* &b){
     int randIngr;
@@ -182,6 +198,10 @@ void Restaurant::render() {
 void Restaurant::serveClient(){
     if(entityManager->firstClient!= nullptr){
         money += entityManager->firstClient->serve(player->getBurger());
+        Inspector * inspector = dynamic_cast<Inspector*>(this->entityManager->firstClient);
+        if(inspector != NULL){ //If an isnpector was served another one can be spawned.
+            spawnInspector = true;
+        }
     }
 }
 
@@ -189,6 +209,18 @@ void Restaurant::countAngryClients(){
     //checks the first client to see if they are about to leave without being served and adds 1 to the count if so
     if(this->entityManager->firstClient != nullptr && this->entityManager->firstClient->getPatience() == 1 && !this->entityManager->firstClient->isServed){
         this->clientsThatLeft++;
+        Inspector * inspector = dynamic_cast<Inspector*>(this->entityManager->firstClient);
+        if(inspector != NULL){ //If an inspector has left then this if statement will run.
+            if(money !=0){
+                bool once = true;
+                do
+                {
+                    money = money/2; //Halves the money earned.
+                    once = false;
+                } while (once);
+            }
+            spawnInspector = true; //Since an isnpector has left, another one can be spawned.
+        }
     }
 }
 
