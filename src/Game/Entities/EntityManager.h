@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Client.h"
+#include "Inspector.h"
 
 class EntityManager {
 

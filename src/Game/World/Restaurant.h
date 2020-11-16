@@ -25,6 +25,7 @@ class Restaurant {
         void setMoney(int money){ this-> money = money; } //establish money when needed. 
         void countAngryClients(); //will keep track of clients that left without being served
         void setPlayer(Player *player);
+        bool spawnInspector = true; //bool that will mantain only one inspector in line.
         Item* cheese;
         Item* lettuce;
         Item* tomato;
@@ -45,6 +46,7 @@ class Restaurant {
         void initCounters();
         void initClients();
         void generateClient();
+        void generateInspector(); //generate an Inspector.
         void serveClient();
         void tick();
         void render();
