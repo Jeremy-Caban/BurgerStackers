@@ -90,7 +90,7 @@ void Restaurant::initClients(){
 void Restaurant::tick() {
     ticks++;
     int randGenerate = ofRandom(5); //Generate 5 random numbers to create a 20% chance of generating an inspector instead of a client.
-    if(ticks % 400 == 0){
+    if(ticks % 400 == 0 && !clientLimitReached){
         if( randGenerate == 0 && spawnInspector == true){
             generateInspector();
             spawnInspector = false; //do not spawn inspector if one is already in line. 
@@ -98,7 +98,16 @@ void Restaurant::tick() {
         else{
             generateClient();
         }
+        
+    }if(this->entityManager->firstClient == nullptr){ //if there are no clients, countClients() can't be called 
+        clientLimitReached = false; //as such we start spawning again
     }
+    else if(this->entityManager->firstClient->countClients() < 6){ //the client limit is 6
+        clientLimitReached = false;
+    }else{
+        clientLimitReached = true;
+    }
+//this->entityManager->firstClient->countClients() == 6
     player->tick();
     entityManager->tick();
 
@@ -229,5 +238,11 @@ void Restaurant::keyPressed(int key) {
     }
     if(key == '-'){ //Activate LoseState.
         clientsThatLeft = 10;
+    }
+    if(key == '1'){
+        if(this->entityManager->firstClient != nullptr && this->money >= 15){
+            this->entityManager->firstClient->calmClients(0);
+            this->money -= 15;
+        }
     }
 }

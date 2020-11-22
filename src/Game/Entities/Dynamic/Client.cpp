@@ -92,3 +92,23 @@ bool Client::equals(Burger* chefBurger){
         return false;
     }
 }
+
+int Client::countClients(){
+    if(this->nextClient == nullptr){
+        return 1;
+    }else{
+        return 1 + this->nextClient->countClients();
+    }
+}
+
+void Client::calmClients(int i){
+    //the "i" adds a little variance to the patience so as to not make all the clients leave at the same time
+    if(this->nextClient == nullptr){
+        this->patience = 2000+(2*i);
+        this->losingPatience = 255;
+    }else{
+        this->patience = 2000+(2*i); 
+        this->losingPatience = 255;
+        this->nextClient->calmClients(i+1);
+    }
+}

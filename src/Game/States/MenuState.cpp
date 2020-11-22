@@ -17,7 +17,8 @@ void MenuState::render() {
 	this->startScreen.draw(0, 0, ofGetWidth(), ofGetHeight());
 	ofSetBackgroundColor(230, 230, 250);
 	startButton->render();
-	ofDrawBitmapString("Instructions:\nPress 'e' to pick up ingredients\nPress 's' to serve burger\nPress 'u' to remove the last added ingredient",(ofGetWidth()/2)*0.2,(ofGetHeight()/2)*1.6);
+	//display instructions/controls
+	ofDrawBitmapString("Instructions:\nPress 'e' to pick up ingredients\nPress 's' to serve burger\nPress 'u' to remove the last added ingredient\nPress '1' to calm clients (costs $15)",(ofGetWidth()/2)*0.2,(ofGetHeight()/2)*1.6);
 }
 
 void MenuState::keyPressed(int key){

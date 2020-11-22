@@ -17,6 +17,7 @@ class Restaurant {
         std::vector<ofImage> people;
         int money =0;
         int clientsThatLeft = 0;
+        bool clientLimitReached = false;
     public:
         Restaurant();
         Player* getPlayer();
