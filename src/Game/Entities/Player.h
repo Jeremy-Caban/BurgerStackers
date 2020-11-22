@@ -8,6 +8,7 @@ class Player: public Entity{
 
     private:
         int speed = 5;
+        int controlSpeed = 96;
         string facing = "right";
         Animation *chefAnim;
         Burger *burger;
@@ -22,6 +23,8 @@ class Player: public Entity{
         void keyReleased(int);
         void mousePressed(int, int, int);
         void setFacing(string);
+        void move(char c);
+        bool takeControl = false;
         BaseCounter* getActiveCounter();
         Burger* getBurger(){
             return burger;
