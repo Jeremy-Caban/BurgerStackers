@@ -18,19 +18,34 @@ Player::Player(int x, int y, int width, int height, ofImage sprite, EntityManage
     
 }
 void Player::tick(){
-    chefAnim->tick();
-    if(facing == "left"){
-        x-=speed;
-    }else if(facing == "right"){
-        x+=speed;
-    }
-    if(x <= 0){
-        facing = "right";
-    }else if(x + width >= ofGetWidth()){
-        facing = "left";
+    if(!takeControl){ //If takeControl is false, the chef will move automatic.
+        chefAnim->tick();
+        if(facing == "left"){
+            x-=speed;
+        }else if(facing == "right"){
+            x+=speed;
+        }
+        if(x <= 0){
+            facing = "right";
+        }else if(x + width >= ofGetWidth()){
+            facing = "left";
+        }
     }
     if(startTimer){ //while timer is on, count ticks
-        this->cookTimer++;
+            this->cookTimer++;
+    }
+}
+
+void Player::move(char c){
+    if(takeControl){ //If you have control of the chef.
+        if(c == 'd' && x + width < ofGetWidth()){
+            x+=controlSpeed;
+            facing = "right";
+        }
+        else if(c == 'a' && x>0){
+            x-=controlSpeed;
+            facing = "left";
+        }
     }
 }
 
@@ -77,6 +92,16 @@ void Player::keyPressed(int key){
         }
     }else if(key == 'u'){
         this->burger->removeIngredient();
+    }else if(key == 'c'){
+        takeControl = !takeControl;
+        if(takeControl){ //Set the Chef to his original position when you have control of him.
+            this->setX(0);
+            this->setY(600);
+        }
+    }else if(key == 'd'){ //Move to the right when you have control of the chef.
+        move(key);
+    }else if(key == 'a'){ //Move to the left when you have control of the chef.
+        move(key);
     }
 }
 BaseCounter* Player::getActiveCounter(){

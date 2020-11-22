@@ -18,7 +18,7 @@ void MenuState::render() {
 	ofSetBackgroundColor(230, 230, 250);
 	startButton->render();
 	//display instructions/controls
-	ofDrawBitmapString("Instructions:\nPress 'e' to pick up ingredients\nPress 's' to serve burger\nPress 'u' to remove the last added ingredient\nPress '1' to calm clients (costs $15)",(ofGetWidth()/2)*0.2,(ofGetHeight()/2)*1.6);
+	ofDrawBitmapString("Instructions:\nPress 'e' to pick up ingredients\nPress 's' to serve burger\nPress 'u' to remove the last added ingredient\nPress '1' to calm clients (costs $15)\nPress 'c' to control the chef's movement\nPress 'd' to move the chef to the right once you have control of the chef\nPress 'a' to move the chef to the left once you have control of the chef",(ofGetWidth()/2)*0.2,(ofGetHeight()/2)*1.6);
 }
 
 void MenuState::keyPressed(int key){

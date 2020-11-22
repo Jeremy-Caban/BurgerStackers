@@ -199,6 +199,13 @@ void Restaurant::render() {
     drawDecorations(); //Draw the restaurants decoration for ambiance.
     player->render();
     entityManager->render();
+    ofSetColor(255, 111, 0);
+    if(player->takeControl){ //Display the type of control the player has.
+        ofDrawBitmapString("Control: Manual", (ofGetWidth()/2)-200, 10);
+    }
+    else{
+        ofDrawBitmapString("Control: Automatic", (ofGetWidth()/2)-200, 10);
+    }
     ofSetColor(0, 100, 0);
     ofDrawBitmapString("Money: " + to_string(money), ofGetWidth()/2, 10);
     ofSetColor(255,0,0);
