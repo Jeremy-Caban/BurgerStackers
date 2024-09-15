@@ -21,3 +21,7 @@ Music:
 2) Lose Music: Obtained from https://www.zedge.net/ringtone/7c0100e9-5663-3e88-a4ee-7c9b728feb08
 
 3) Win Music: Obtained from https://www.zedge.net/ringtone/33725a2c-1485-3eb2-8bcc-a9a62deac6ce
+
+A project made for my ciic4010 (advanced programming) class, it was created and ran with 
+OpenFrameworks ver. 0.11.0 for mingw, and may not be compatible with future 
+versions of OpenFrameworks
